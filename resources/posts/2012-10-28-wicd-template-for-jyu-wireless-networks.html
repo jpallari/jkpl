@@ -1,0 +1,46 @@
+{:title "Wicd template for JYU wireless networks"
+ :tags  ["howto"]}
+
+---
+
+<p>
+The <strong>jyu-staff</strong> and <strong>jyu-student</strong> wireless networks at the University of Jyväskylä use EAP-TTLS and PAP for authentication.
+Unfortunately, <a href="https://launchpad.net/wicd">Wicd</a> doesn't ship with a template for using those networks, so you have to either make one yourself or search one that works.
+You can find a bunch of templates by searching for <a href="http://google.com/?q=wicd+eduroam+template">wicd eduroam templates</a>, but for the sake of convenience here's <a href="/files/eap-ttls-pap">one template that works</a> (<a href="https://gist.github.com/4693213">gist</a>):
+</p>
+
+<pre><code>name = EAP-TTLS-PAP
+author = jkpl
+version = 1
+require identity *Identity password *Password
+optional ca_cert *Path_to_CA_cert anon_identity *Anonymous_Identity
+protected password *Password
+-----
+ctrl_interface=/var/run/wpa_supplicant
+network={
+    ssid=&quot;$_ESSID&quot;
+    scan_ssid=$_SCAN
+    key_mgmt=WPA-EAP
+    proto=WPA WPA2
+    eap=TTLS
+    group=CCMP TKIP
+    anonymous_identity=&quot;$_ANON_IDENTITY&quot;
+    ca_cert=&quot;$_CA_CERT&quot;
+    phase2=&quot;auth=PAP&quot;
+    identity=&quot;$_IDENTITY&quot;
+    password=&quot;$_PASSWORD&quot;
+}</code></pre>
+
+<p>...and here's how you get it to work:</p>
+
+<ol>
+  <li>Download the <a href="/files/eap-ttls-pap">template file</a>.</li>
+  <li>Copy the downloaded file to your wicd templates directory, <code>/etc/wicd/encryption/templates/</code>.</li>
+  <li>Open Wicd network manager.</li>
+  <li>Depending on whether you are part of the staff or a student, select either <strong>jyu-staff</strong> or <strong>jyu-student</strong> network, and open the properties for that network.</li>
+  <li>Make sure you check the option &quot;Use these settings for all networks sharing this essid&quot;.</li>
+  <li>Select <strong>EAP-TTLS-PAP</strong> as encryption profile for the network.</li>
+  <li>Type your JYU credentials (the ones you use in every JYU service) to "Indentity" and "Password" fields.</li>
+  <li>(Optional) Download the <a href="https://www.jyu.fi/itp/ohjeet/tutoriaalit/varmenne-juurivarmenne/jyu_ca2.pem">JYU root certificate</a>, place it somewhere safe (eg. <code>/etc/ssl/certs/</code>), and copy the certificate's full path to "Path to CA cert" field.</li>
+  <li>Save the changes, and connect.</li>
+</ol>

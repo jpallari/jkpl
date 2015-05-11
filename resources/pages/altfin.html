@@ -1,0 +1,137 @@
+{:title "AltFin"}
+
+---
+
+<p>
+AltFin is a variant of the <a href="http://en.wikipedia.org/wiki/Keyboard_layout#US-International">US International</a> keyboard layout.
+Basically it's the same layout as US International except that AltFin has no dead keys and the extra key between <strong>Z</strong> and <strong>shift</strong> is mapped to <strong>Ä</strong> and <strong>Ö</strong>.
+The extra key mapping is similar to one used in <a href="http://arkku.com/dvorak/">ArkkuDvorak</a>.
+</p>
+
+<p>In short, AltFin provides the following features:</p>
+
+<ul>
+  <li>A key map compatible with the US layout.</li>
+  <li>Quick access to <strong>Ä</strong> and <strong>Ö</strong></li>
+  <li>Access to bunch of other exotic symbols via Alt Gr</li>
+</ul>
+
+<p>AltFin is useful for those who...</p>
+
+<ul>
+  <li>like using US International layout without dead keys.</li>
+  <li>dislike the way punctuation characters and other special characters are laid out in the finnish keyboard layout.</li>
+  <li>need quick access to <strong>Ä</strong> and <strong>Ö</strong> characters, but don't need two whole keys in the home row devoted to them.</li>
+</ul>
+
+<p><a href="/img/altfin.png">Image of the layout</a></p>
+
+<h2 id="windows">Using AltFin in Windows</h2>
+
+<p>
+Unlike most Linux distributions, there is no dead keyless version of US International variant, so I created an installable keyboard layout for Windows.
+</p>
+
+<ol>
+  <li>Download this archive: <a href="/files/altfin.zip">altfin.zip</a></li>
+  <li>Unpack the archive and run <code>setup.exe</code> file</li>
+  <li>After the installation is complete, go to the keyboard layout settings in the Windows control panel.</li>
+  <li>Add the layout, and make it default. The layout is located under the finnish layouts group as &quot;Alternative Finnish Layout&quot; or something like that.</li>
+</ol>
+
+<p>
+If you want to make changes to the layout, you can use <a href="http://msdn.microsoft.com/en-us/goglobal/bb964665">Microsoft Keyboard Layout Creator</a> to modify the <code>altfin.klc</code> file located in the archive.
+</p>
+
+<h2 id="linux">Using AltFin in Linux</h2>
+
+<p>There are (atleast) two ways to install AltFin in Linux:</p>
+
+<ol style="list-style-type: decimal">
+  <li>Use an existing XKB layout, and use Xmodmap to map the extra key, or</li>
+  <li>Use a custom XKB layout.</li>
+</ol>
+
+<p>
+I'd say the first option is a more simple solution than the second one.
+I recommend trying it, if you use a desktop environment like GNOME, KDE, XFCE or LXDE.
+Many of the desktop environments provide tools for switching between different keyboard layouts which might not work that well with custom layouts.
+</p>
+
+<p>
+I personally prefer the second solution, because it doesn't involve Xmodmap.
+Xmodmap is kind of a hack, and it might not give the results you'd hope for.
+If you are interested in tuning your keyboard mappings via XKB, check out <a href="http://madduck.net/docs/extending-xkb/">madduck's guide</a>.
+</p>
+
+<p>Anyhow, here are the two guides for AltFin on Linux:</p>
+
+<h3 id="xmodmap">1. Existing layout w/ Xmodmap</h3>
+
+<p>
+Most Linux distributions already provide a dead keyless version of the US International variant.
+There are several ways to switch the layout:
+</p>
+
+<ul>
+  <li>via graphical tools like <strong>lxkeymap</strong> in LXDE or <strong>keyboard configuration tool</strong> in GNOME.</li>
+  <li>via command line using setxkbmap: <code>setxkbmap us -variant altgr-intl</code></li>
+</ul>
+
+<p>
+If you use Ubuntu or any other Debian based distribution, you can change the layout system wide using the correct <code>dpkg-reconfigure</code> command:
+</p>
+
+<pre><code>sudo dpkg-reconfigure keyboard-configuration</code></pre>
+
+<p>
+To map the extra key, put the following line to your .Xmodmap file in your home directory, and make sure you run the command <code>xmodmap ~/.Xmodmap</code> everytime you login:
+</p>
+
+<pre><code>keycode 94 = adiaeresis odiaeresis Adiaeresis Odiaeresis</code></pre>
+
+<p>
+Unfortunately, Xmodmap doesn't recognize right Alt key as the Alt Gr key, so you can't produce capitalized <strong>ä</strong> or <strong>ö</strong> by pressing right alt + (shift +) the extra key.
+However, you can still access those letters by pressing right alt + shift + q and right alt + shift + p.
+</p>
+
+<p>
+If you change the keyboard layout or you somehow lose the xmodmap mappings, just run <code>xmodmap ~/.Xmodmap</code> manually.
+</p>
+
+<h3 id="xkb-layout">2. Custom XKB layout</h3>
+
+<p>
+By following <a href="http://madduck.net/docs/extending-xkb/">madduck's guide</a>, I created my own XKB rules.
+</p>
+
+<ol>
+  <li>Download this archive: <a href="/files/altfin.tar.gz">altfin.tar.gz</a></li>
+  <li>Unpack the archive to your home directory.</li>
+  <li><p>Place the <code>loadaltfin</code> any place you want and make it executable</p>
+  <pre><code>chmod +x /path/to/loadaltfin</code></pre></li>
+  <li><p>Make sure is run <code>loadaltfin</code> every time you login.</p></li>
+</ol>
+
+<p>
+If you change the keyboard layout or it somehow resets to some other layout, just run the <code>loadaltfin</code> executable again.
+</p>
+
+<h2 id="osx">Using AltFin in OS X</h2>
+
+<ol>
+  <li>Download this file: <a href="/files/AltFin.keylayout">AltFin.keylayout</a></li>
+  <li>Copy the file to path <code>~/Library/Keyboard Layouts/</code></li>
+  <li>In OS X, go to System Preferences ⇒ Language &amp; Text ⇒ Input Sources</li>
+  <li>Make sure AltFin is enabled in the input source list.</li>
+  <li>If you have more than one layouts selected, make sure you select AltFin from the input menu in menu bar.</li>
+</ol>
+
+<p>
+If you didn't like the layout, you can try <a href="/files/AltFin_2.keylayout">another layout file</a>.
+Download and replace the file you downloaded before with the new file.
+You may have to restart some applications to get the layout to work.
+</p>
+
+<p>OS X AltFin layout provided by <a href="http://keveri.fi/">matson</a></p>
+

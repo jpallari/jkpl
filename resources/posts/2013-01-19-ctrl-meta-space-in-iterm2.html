@@ -1,0 +1,29 @@
+{:title "Ctrl-Meta-Space in iTerm2"
+ :tags  ["howto"]}
+
+---
+
+<p>
+In Emacs, there's a handy command called <code>mark-sexp</code>.
+It marks the rest of the current s-expression from the cursor's position.
+It's mapped to <code>C-M-SPC</code> (ctrl + meta + space) by default, which is compatible with terminal applications.
+</p>
+
+<p>
+However, if you have option key mapped to <code>+Esc</code> in iTerm2, pressing ctrl + option + space is interpreted as meta + space instead.
+To fix this, you need to add an additional keybinding to your session's key bindings.
+</p>
+
+<ol>
+  <li>In iTerm2, open: Preferences &gt; Profiles &gt; some session you wish to edit &gt; Keys.</li>
+  <li>Add a new key binding by pressing the &quot;+&quot; button.</li>
+  <li>Select the &quot;Keyboard Shortcut&quot; field, and press ctrl + option + space.</li>
+  <li>Select &quot;Send Hex Code&quot; in the &quot;Action&quot; list.</li>
+  <li>Type &quot;0x1b 0x00&quot; to the field below the list.</li>
+  <li>Click OK and close the preferences window.</li>
+</ol>
+
+<p>
+<code>C-M-SPC</code> now works in all the new terminal windows that use the edited session.
+You can also make the same changes for running terminals by editing the running session.
+</p>

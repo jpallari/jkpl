@@ -1,0 +1,21 @@
+name = EAP-TTLS-PAP
+author = jkpl
+version = 1
+require identity *Identity password *Password
+optional ca_cert *Path_to_CA_cert anon_identity *Anonymous_Identity
+protected password *Password
+-----
+ctrl_interface=/var/run/wpa_supplicant
+network={
+    ssid="$_ESSID"
+    scan_ssid=$_SCAN
+    key_mgmt=WPA-EAP
+    proto=WPA WPA2
+    eap=TTLS
+    group=CCMP TKIP
+    anonymous_identity="$_ANON_IDENTITY"
+    ca_cert="$_CA_CERT"
+    phase2="auth=PAP"
+    identity="$_IDENTITY"
+    password="$_PASSWORD"
+}

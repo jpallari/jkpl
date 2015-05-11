@@ -1,0 +1,33 @@
+{:title "Asus UL30A brightness keys on Linux"
+ :tags  ["howto"]}
+
+---
+
+<p>
+Asus UL30A is a lightweight, 13 inch, budget laptop with a pretty long battery life.
+It also has a pretty good compatibility with Linux: pretty much everything works out-of-the-box.
+The only things that need tweaking after a fresh Linux installation are the brightness controls.
+</p>
+
+<p>
+To get the keys working, you need to make sure that Linux boots the kernel with the these ACPI settings:
+</p>
+
+<pre><code>acpi_osi= acpi_vendor=vendor</code></pre>
+
+<p>
+If you have Debian, Ubuntu, Linux Mint or any other Debian based distribution installed, all you need to do is follow these steps:
+</p>
+
+<ul>
+  <li>Edit file <code>/etc/default/grub</code></li>
+  <li>
+    <p>Make sure that <code>GRUB_CMDLINE_LINUX</code> variable includes the mentioned settings. 
+    For example:</p>
+    <pre><code>GRUB_CMDLINE_LINUX="acpi_osi= acpi_vendor=vendor"</code></pre>
+  </li>
+  <li>
+    <p>Run <code>update-grub</code>:</p>
+    <pre><code># sudo update-grub</code></pre>
+  </li>
+</ul>

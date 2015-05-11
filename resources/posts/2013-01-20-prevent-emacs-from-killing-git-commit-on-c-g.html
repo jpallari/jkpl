@@ -1,0 +1,46 @@
+{:title "Prevent Emacs from killing \"git commit\" on C-g"
+ :tags  ["howto"]}
+
+---
+
+<p>
+If you use Emacs and Git, you might have noticed that pressing control + G (<code>C-g</code>) while typing a commit message kills the whole commit process.
+<code>C-g</code> in Emacs is used for cancelling commands.
+It also sends a SIGINT signal to Emacs.
+The signal is also passed to the parent process, git, which causes git to end the whole process.
+</p>
+
+<p>
+The workaround is to prevent the signal from getting to git.
+One such way is to call Emacs within a shell script.
+Shells typically ignore SIGINT signals.
+Here's an example of such script:
+</p>
+
+<pre><code>#!/bin/sh -i
+/usr/bin/emacs -nw "$@"</code></pre>
+
+<p>
+Here shell script starts in an interactive mode, calls <code>/usr/bin/emacs</code>, and passes all the script's parameters to Emacs.
+Save the script somewhere in your <code>$PATH</code> (for example <code>$HOME/bin/emacs.sh</code>), and make git use the script as its editor:
+</p>
+
+<pre><code>$ git config --global core.editor emacs.sh</code></pre>
+
+<p>The same workaround works for Mercurial, too. Change the editor for hg:</p>
+
+<pre><code>$ hg config --config ui.editor emacs.sh</code></pre>
+
+<p>
+If you want to use the script as an editor for all the command line programs, just change the <code>EDITOR</code> and <code>VISUAL</code> environment variables in your shell's initialization files:
+</p>
+
+<pre><code>export EDITOR="emacs.sh"
+export VISUAL="$EDITOR"</code></pre>
+
+<p>Sources:</p>
+
+<ul>
+<li><a href="http://thread.gmane.org/gmane.comp.version-control.git/158981">http://thread.gmane.org/gmane.comp.version-control.git/158981</a></li>
+<li><a href="http://www.cons.org/cracauer/sigint.html">http://www.cons.org/cracauer/sigint.html</a></li>
+</ul>
