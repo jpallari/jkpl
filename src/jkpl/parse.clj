@@ -52,6 +52,8 @@
   (assoc (parse-page conf filename content :page-type "post")
          :date (parse-date filename)))
 
+(defn- reverse-compare [a b] (compare b a))
+
 (defn- parse-pages
   [conf coll]
   (->> coll
@@ -62,7 +64,7 @@
   [conf coll]
   (->> coll
        (map (partial apply parse-post conf))
-       (sort-by :date)
+       (sort-by :date reverse-compare)
        link-posts))
 
 (defn site
