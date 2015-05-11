@@ -1,0 +1,36 @@
+{% extends "templates/base.html" %}
+{%block subtitle %}{{post.title}}{% endblock %}
+{% block content %}
+<div class="post">
+  <header class="post-header">
+    <p class="post-meta">
+      {{post.date|date:longDate}}
+      {% if post.author %}
+      By: {{post.author}}
+      {% endif %}
+    </p>
+    <h2>{{post.title}}</h2>
+  </header>
+  <div>
+    {{post.content|safe}}
+  </div>
+  {% if post.tags|not-empty %}
+  <div class="post-tags">
+    <b>Tags: </b>
+    {% for tag in post.tags %}
+    <a href="{{tag|tag-uri}}">{{tag}}</a>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="prev-next">
+    {% if post.prev %}
+    <a href="{{post.prev.uri}}">&laquo; {{post.prev.title}}</a>
+    {% endif %}
+
+    {% if post.next %}
+    <a class="right" href="{{post.next.uri}}">{{post.next.title}} &raquo;</a>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

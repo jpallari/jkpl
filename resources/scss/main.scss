@@ -1,0 +1,263 @@
+// Background colors
+$b_bg_color:         #eee;
+$b_fg_color:         #888;
+
+// Header colors
+$h_bg_color:         #213;
+$h_fg_color:         #fff;
+$h_border_color:     $h_bg_color;
+
+// Normal colors
+$bg_color:           #f8f8f8;
+$fg_color:           #444;
+$c_border_color:     #ccc;
+
+// Footer colors
+$f_bg_color:         $b_bg_color;
+$f_fg_color:         $b_fg_color;
+
+// Link colors
+$l_fg_color:         #d14;
+$l_bg_color:         transparent;
+$l_hover_bg_color:   $l_fg_color;
+$l_hover_fg_color:   #fff;
+
+// Code colors
+$code_bg:            #f1f1f1;
+$code_border:        #ddd;
+$code_block_border:  #35a;
+
+// Layout
+$content_width:     68%;
+$content_right:     0.5%;
+$sidebar_right:     0.5%;
+$sidebar_width:     100% - $content_width - $content_right - $sidebar_right - 4%;
+
+// Fonts
+$font_serif:         "PT Serif", Georgia, Times, "Times New Roman", serif;
+$font_sans_serif:    Arial, "Helvetica Neue", Helvetica, sans-serif;
+$font_monospace:     "Lucida Console", "Lucida Sans Typewriter", Monaco, "Bitstream Vera Sans Mono", monospace;
+
+// Font sizes
+$normal_font_size:   1.0em;
+$code_font_size:     0.9em;
+$footer_font_size:   medium;
+$title_font_size:    24px;
+
+// Mixins
+
+@mixin border-radius($radius: 5px) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+
+// Defaults
+
+html, body {
+  background-color: $b_bg_color;
+  color: $b_fg_color;
+  margin: 0;
+  padding: 0;
+}
+
+pre {
+  margin: 1em 0;
+  padding: 0.2em 0.8em;
+  border: 1px solid $code_block_border;
+  border-left: 6px solid $code_block_border;
+  background-color: $code_bg;
+  overflow-x: auto;
+  font-family: $font_monospace;
+  font-size: $code_font_size;
+}
+
+code {
+  border: 1px solid $code_border;
+  background-color: #fff;
+  @include border-radius(2px);
+  padding: 0 0.4em;
+  font-family: $font_monospace;
+  font-size: $code_font_size;
+}
+
+pre code {
+  background-color: transparent;
+  border: 0px solid $code_border;
+  font-size: $code_font_size;
+  padding: 0;
+}
+
+a {
+  color: $l_fg_color;
+  background-color: $l_bg_color;
+  text-decoration: underline;
+  &:hover {
+    color: $l_hover_fg_color;
+    background-color: $l_hover_bg_color;
+  }
+}
+
+ol {
+  list-style-type: decimal;
+}
+
+// Page setup
+
+.header {
+  background-color: $h_bg_color;
+  color: $h_fg_color;
+  padding: 0 2em;
+  margin: 0;
+  font-family: $font_sans_serif;
+
+  .title {
+    font-size: $title_font_size;
+    font-weight: bold;
+    &:hover {
+      background-color: inherit;
+      color: inherit;
+    }
+  }
+
+  a {
+    color: #fff;
+    line-height: 24px;
+    text-decoration: none;
+    background-color: transparent;
+    display: inline-block;
+    padding: 5px 5px;
+    &:hover {
+      background-color: $h_fg_color;
+      color: $h_bg_color;
+    }
+  }
+
+  ul {
+    display: inline-block;
+    list-style: none;
+    text-align: center;
+    height: auto;
+    padding: 0;
+    margin: 0;
+  }
+  li {
+    display: inline;
+  }
+}
+
+.content {
+  background-color: $bg_color;
+  color: $fg_color;
+  border: 1px solid $c_border_color;
+  font-family: $font_sans_serif;
+}
+
+.sidebar {
+  font-family: $font_sans_serif;
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+}
+
+footer {
+  color: $f_fg_color;
+  padding: 0.1em 2em 0.1em 2em;
+  font-family: $font_sans_serif;
+  font-size: $footer_font_size;
+  text-align: right;
+  margin-top: 10px;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+// Random elements
+
+.pagetitle {
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      color: $h_fg_color;
+      background-color: $h_bg_color;
+    }
+  }
+}
+
+.float-container {
+
+  .float-left {
+    float: left;
+  }
+
+  .float-right {
+    float: right;
+  }
+}
+
+.prev-next {
+  padding: 15px 0 0 0;
+  overflow: hidden;
+}
+
+.right {
+  float: right;
+  text-align: right;
+}
+
+.posts {
+  ul {
+    list-style: none;
+  }
+}
+
+// Normal
+@media (min-width: 641px) {
+  .layout {
+    float: left;
+    width: 100%;
+    margin-bottom: 20px;
+    
+    .content-container {
+      clear: left;
+      float: left;
+      width: $content_width;
+      padding: 0;
+      margin: 10px 0 0 $content_right;
+      display: inline;
+    }
+
+    .sidebar {
+      float: left;
+      width: $sidebar_width;
+      padding: 5px;
+      margin: 0 0 0 $sidebar_right;
+      display: inline;
+    }
+  }
+
+  .content {
+    font-size: $normal_font_size;
+    padding: 10px;
+    @include border-radius(5px);
+    margin: 0 0.5em;
+  }
+}
+
+// Responsive
+@media (max-width: 640px) {
+  .content {
+    padding: 5px;
+    margin: 0;
+  }
+
+  .layout {
+    .sidebar {
+      padding: 5px;
+    }
+  }
+}

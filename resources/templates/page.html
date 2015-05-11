@@ -1,0 +1,12 @@
+{% extends "templates/base.html" %}
+{%block subtitle %}{% if not page.hide-title? %}{{page.title}}{% endif %}{% endblock %}
+{% block content %}
+<div class="custom-page">
+  {% if not page.hide-title? %}
+  <div class="page-header">
+    <h2>{{page.title}}</h2>
+  </div>
+  {% endif %}
+  {{page.content|safe}}
+</div>
+{% endblock %}
