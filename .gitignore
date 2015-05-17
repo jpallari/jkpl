@@ -12,3 +12,4 @@ pom.xml.asc
 .hg/
 .sass-cache
 /resources/assets/styles
+deploy.sh
