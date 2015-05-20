@@ -10,16 +10,18 @@
 <body>
 
 <div class="header">
-  <a id="top" class="title" href="{{site-url}}">{{site-title}}&raquo;</a>
-  <ul>
-    <li><a href="{{archive-uri}}">Archive</a></li>
-    {% for nav-page in navbar-pages %}
-    <li {%ifequal page.uri nav-page.uri %} class="" {% endifequal %}>
-    <a href="{{nav-page.uri}}">{{nav-page.title}}</a>
-    </li>
-    {% endfor %}
-    <li><a href="{{atom-uri}}">RSS</a></li>
-  </ul>
+  <div class="header-content">
+    <a id="top" class="title" href="{{site-url}}">{{site-title}}&raquo;</a>
+    <ul>
+      <li><a href="{{archive-uri}}">Archive</a></li>
+      {% for nav-page in navbar-pages %}
+      <li {%ifequal page.uri nav-page.uri %} class="" {% endifequal %}>
+      <a href="{{nav-page.uri}}">{{nav-page.title}}</a>
+      </li>
+      {% endfor %}
+      <li><a href="{{atom-uri}}">RSS</a></li>
+    </ul>
+  </div>
 </div>
 
 <div class="layout">

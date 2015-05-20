@@ -29,20 +29,27 @@ $code_block_border:  #35a;
 
 // Layout
 $content_width:     68%;
-$content_right:     0.5%;
-$sidebar_right:     0.5%;
+$content_right:     0;
+$sidebar_right:     0;
 $sidebar_width:     100% - $content_width - $content_right - $sidebar_right - 4%;
+$content_max_width: 1000px;
+$layout_max_width:  1400px;
 
 // Fonts
-$font_serif:         "PT Serif", Georgia, Times, "Times New Roman", serif;
-$font_sans_serif:    Arial, "Helvetica Neue", Helvetica, sans-serif;
-$font_monospace:     "Lucida Console", "Lucida Sans Typewriter", Monaco, "Bitstream Vera Sans Mono", monospace;
+$font_serif:         Georgia, "Times New Roman", Times, serif;
+$font_sans_serif:    "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font_monospace:     Menlo, Monaco, Consolas, monospace;
+$default_font:       $font_sans_serif;
+$content_font:       $font_sans_serif;
+$code_font:          $font_monospace;
 
 // Font sizes
-$normal_font_size:   1.0em;
-$code_font_size:     0.9em;
+$normal_font_size:   16px;
+$code_font_size:     14px;
 $footer_font_size:   medium;
 $title_font_size:    24px;
+$line_height:        1.4;
+$code_line_height:   1.2;
 
 // Mixins
 
@@ -57,6 +64,9 @@ $title_font_size:    24px;
 html, body {
   background-color: $b_bg_color;
   color: $b_fg_color;
+  font-size: $normal_font_size;
+  font-family: $default_font;
+  line-height: $line_height;
   margin: 0;
   padding: 0;
 }
@@ -68,24 +78,22 @@ pre {
   border-left: 6px solid $code_block_border;
   background-color: $code_bg;
   overflow-x: auto;
-  font-family: $font_monospace;
-  font-size: $code_font_size;
+  line-height: $code_line_height;
 }
 
 code {
   border: 1px solid $code_border;
   background-color: #fff;
   @include border-radius(2px);
-  padding: 0 0.4em;
-  font-family: $font_monospace;
-  font-size: $code_font_size;
+  padding: 0 4px;
+  font-family: $code_font;
 }
 
 pre code {
   background-color: transparent;
-  border: 0px solid $code_border;
-  font-size: $code_font_size;
+  border: 0;
   padding: 0;
+  font-size: $code_font_size;
 }
 
 a {
@@ -107,9 +115,8 @@ ol {
 .header {
   background-color: $h_bg_color;
   color: $h_fg_color;
-  padding: 0 2em;
   margin: 0;
-  font-family: $font_sans_serif;
+  padding: 0 1em;
 
   .title {
     font-size: $title_font_size;
@@ -150,21 +157,20 @@ ol {
   background-color: $bg_color;
   color: $fg_color;
   border: 1px solid $c_border_color;
-  font-family: $font_sans_serif;
+  font-family: $content_font;
 }
 
 .sidebar {
-  font-family: $font_sans_serif;
   ul {
-    list-style: none;
+    list-style: square;
     padding: 0;
+    margin-left: 20px;
   }
 }
 
 footer {
   color: $f_fg_color;
   padding: 0.1em 2em 0.1em 2em;
-  font-family: $font_sans_serif;
   font-size: $footer_font_size;
   text-align: right;
   margin-top: 10px;
@@ -216,16 +222,21 @@ footer {
 }
 
 // Normal
-@media (min-width: 641px) {
+@media (min-width: 769px) {
+  .header-content {
+    margin: 0 auto;
+    max-width: $layout_max_width;
+  }
+
   .layout {
-    float: left;
-    width: 100%;
-    margin-bottom: 20px;
+    margin: 0 auto 20px auto;
+    max-width: $layout_max_width;
     
     .content-container {
       clear: left;
       float: left;
       width: $content_width;
+      max-width: $content_max_width;
       padding: 0;
       margin: 10px 0 0 $content_right;
       display: inline;
@@ -241,7 +252,6 @@ footer {
   }
 
   .content {
-    font-size: $normal_font_size;
     padding: 10px;
     @include border-radius(5px);
     margin: 0 0.5em;
@@ -249,7 +259,7 @@ footer {
 }
 
 // Responsive
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .content {
     padding: 5px;
     margin: 0;
