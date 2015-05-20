@@ -1,0 +1,78 @@
+{:title "Commenting lines in Vim"
+ :tags  ["vim"]}
+
+---
+
+<p>
+Emacs has a nice command called <code>comment-region</code>, which can be used for commenting lines of code.
+The command adds comment symbols to the beginning of each line in the selected region.
+If the first line in the selected region already begins with a comment symbol, the comment symbols are removed from each line.
+Unfortunately, there is no equivalent command in Vim, but a similar command can be easily created with just a few lines of Vimscript.
+</p>
+
+<pre><code>fu! CommentLines() range
+    let commentsymbol = exists('b:commentsymbol') ? b:commentsymbol : '//'
+    let beginsWithComment = getline(a:firstline) =~ ('\M^' . l:commentsymbol)
+    for linenum in range(a:firstline, a:lastline)
+        let line = getline(linenum)
+        let replacement = l:beginsWithComment
+            \ ? substitute(line, '\M^' . l:commentsymbol . '\s\?', '', '')
+            \ : l:commentsymbol . ' ' . line
+        if exists('b:commentsymbolend')
+            let l:replacement = l:beginsWithComment
+                \ ? substitute(l:replacement, '\M\s\?' . b:commentsymbolend . '$', '', '')
+                \ : l:replacement . ' ' . b:commentsymbolend
+        endif
+        call setline(linenum, replacement)
+    endfor
+    call cursor(a:lastline + 1, 1)
+endfunction
+
+fu! CommentSymbol(start, ...)
+    let b:commentsymbol = a:start
+    if a:0 &gt;= 1
+        let b:commentsymbolend = a:1
+    elseif exists('b:commentsymbolend')
+        unlet b:commentsymbolend
+    endif
+endfunction
+
+command! -nargs=0 -range Comment &lt;line1&gt;,&lt;line2&gt;call CommentLines()
+command! -nargs=+ CommentSymbol call CommentSymbol(&lt;f-args&gt;)</code></pre>
+
+<p>
+In the code listing above, the function <code>CommentLines</code> is used for commenting the selected range.
+The command <code>Comment</code> is a short hand for the function, which can be invoked like any other range command.
+For example, invoking <code>:5,10Comment</code> will (un)comment the lines between 5 and 10.
+Invoking the command without a range will (un)comment the line under the cursor.
+Here's how the command can be bound to a key combination such as <code>&lt;Leader&gt;c</code>:
+</p>
+
+<pre><code>nnoremap &lt;silent&gt; &lt;Leader&gt;c :Comment&lt;cr&gt;
+vnoremap &lt;silent&gt; &lt;Leader&gt;c :Comment&lt;cr&gt;</code></pre>
+
+<p>
+The comment symbols can be configured using two buffer local variables.
+The function uses variable <code>b:commentsymbol</code> as the comment symbol.
+By default, <code>//</code> is used as the comment symbol, if the variable is not set.
+An optional variable <code>b:commentsymbolend</code> can also be specified, which will be appended to the commented lines.
+The comment symbols can be set directly to the variables using <code>let</code>:
+</p>
+
+<pre><code>&quot; Python comments
+let b:commentsymbol = '#'
+
+&quot; C style comments
+let b:commentsymbol = '/*'
+let b:commentsymbolend = '*/'</code></pre>
+
+<p>
+Alternatively, the command <code>CommentSymbol</code> can be used:
+</p>
+
+<pre><code>&quot; Python comments
+CommentSymbol #
+
+&quot; C style comments
+CommentSymbol /* */</code></pre>
+
