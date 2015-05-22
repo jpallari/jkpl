@@ -42,9 +42,14 @@
         content (second parts)]
     (assoc page-meta :content content)))
 
+(defn- filename->page-id
+  [filename]
+  (-> filename utils/trim-slashes utils/remove-file-extension))
+
 (defn- parse-page
   [conf filename content & {:keys [page-type] :or {page-type ""}}]
   (assoc (parse-content content)
+         :id (filename->page-id filename)
          :uri (utils/uri page-type filename)))
 
 (defn- parse-post
