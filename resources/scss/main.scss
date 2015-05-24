@@ -103,6 +103,7 @@ a {
   &:hover {
     color: $l_hover_fg_color;
     background-color: $l_hover_bg_color;
+    text-decoration: none;
   }
 }
 
@@ -165,6 +166,10 @@ ol {
     list-style: square;
     padding: 0;
     margin-left: 20px;
+  }
+
+  a {
+    text-decoration: none;
   }
 }
 
