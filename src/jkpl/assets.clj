@@ -3,23 +3,40 @@
             [optimus.assets :as assets]
             [optimus.optimizations :as optimizations]
             [optimus.strategies :refer [serve-live-assets]]
-            [optimus.export]))
+            [optimus.export]
+            [optimus-sass.core]))
 
-(def asset-sources
-  ["/styles/main.css"
-   "/favicon.png"
+(def asset-dir "assets")
+
+(defn- sass-bundle []
+  (assets/load-bundle
+    asset-dir
+    "main.css"
+    [#"/styles/.+\.scss"]))
+
+(def static-asset-files
+  ["/favicon.png"
    #"/img/.*"
    #"/files/.*"])
 
+(defn- static-file-bundle []
+  (assets/load-assets asset-dir static-asset-files))
+
 (defn- get-assets []
-  (assets/load-assets "assets" asset-sources))
+  (concat
+    (sass-bundle)
+    (static-file-bundle)))
 
 (defn server
   [app]
   (optimus/wrap app get-assets optimizations/none serve-live-assets))
 
+(defn optz [assets options]
+  (-> assets
+      (optimizations/minify-css-assets options)))
+
 (defn save
   [target-dir]
   (optimus.export/save-assets
-    (optimizations/none (get-assets) {})
+    (optz (get-assets) {})
     target-dir))
