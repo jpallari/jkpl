@@ -5,68 +5,32 @@
   <title>{{site-title}}&raquo; {% block subtitle %}{% endblock %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="/favicon.png" />
+  <link ref="alternate" type="application/atom+xml" title="posts" href="{{atom-uri}}" />
   {% style "/styles/main.css" %}
 </head>
 <body>
 
 <div class="header">
-  <div class="header-content">
-    <a id="top" class="title" href="{{site-url}}">{{site-title}}&raquo;</a>
-    <ul>
-      <li><a href="{{archive-uri}}">Archive</a></li>
-      {% for nav-page in navbar-pages %}
-      <li {%ifequal page.uri nav-page.uri %} class="" {% endifequal %}>
-      <a href="{{nav-page.uri}}">{{nav-page.title}}</a>
-      </li>
-      {% endfor %}
-      <li><a href="{{atom-uri}}">RSS</a></li>
-    </ul>
+  <div class="box">
+    <h1 id="top" class="title">
+      <a href="{{site-url}}">{{site-title}}&raquo;</a>
+    </h1>
   </div>
 </div>
 
-<div class="layout">
-  <div class="content-container">
-    <div class="content">
-      {% block content %}
-      {% endblock %}
-    </div>
-    <footer class="float-container">
-      <div class="float-left">
-        <a href="#top">&#9650; top</a>
-      </div>
-      <div class="float-right">
-        <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
-        Jaakko Pallari
-      </div>
-    </footer>
+<div class="box">
+  <div class="content">
+    {% block content %}
+    {% endblock %}
   </div>
-  <div id="sidebar" class="sidebar">
-    <ul id="links">
-      {% for page in sidebar-pages %}
-      <li><a href="{{page.uri}}">{{page.title}}</a></li>
-      {% endfor %}
-    </ul>
-    {% if latest-posts|not-empty %}
-    <div id="recent">
-      <h3>Recent Posts</h3>
-      <ul>
-        {% for post in latest-posts %}
-        <li><a href="{{post.uri}}">{{post.title}}</a></li>
-        {% endfor %}
-      </ul>
+  <footer class="float-container">
+    <div class="float-left">
+      <a href="#top">&#9650; top</a>
     </div>
-    {% endif %}
-    {% if tags|not-empty %}
-    <div id="tags">
-      <h3>Tags</h3>
-      <ul>
-        {% for tag in tags %}
-        <li><a href="{{tag|tag-uri}}">{{tag}}</a></li>
-        {% endfor %}
-      </ul>
+    <div class="float-right">
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
     </div>
-    {% endif %}
-  </div>
+  </footer>
 </div>
 
 </body>

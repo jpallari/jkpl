@@ -1,51 +1,40 @@
 // Background colors
-$b_bg_color:         #eee;
-$b_fg_color:         #888;
+$b_bg_color:         #fcfcfc;
+$b_fg_color:         #333;
+$b_border_color:     #ddd;
 
 // Header colors
 $h_bg_color:         #213;
 $h_fg_color:         #fff;
-$h_border_color:     $h_bg_color;
-
-// Normal colors
-$bg_color:           #f8f8f8;
-$fg_color:           #444;
-$c_border_color:     #ccc;
 
 // Footer colors
 $f_bg_color:         $b_bg_color;
 $f_fg_color:         $b_fg_color;
 
 // Link colors
-$l_fg_color:         #d14;
+$l_fg_color:         #44d;
 $l_bg_color:         transparent;
 $l_hover_bg_color:   $l_fg_color;
 $l_hover_fg_color:   #fff;
 
 // Code colors
-$code_bg:            #f1f1f1;
+$code_bg:            #f0f0f0;
 $code_border:        #ddd;
 $code_block_border:  #35a;
 
 // Layout
-$content_width:     68%;
-$content_right:     0;
-$sidebar_right:     0;
-$sidebar_width:     100% - $content_width - $content_right - $sidebar_right - 4%;
-$content_max_width: 1000px;
-$layout_max_width:  1400px;
+$content_max_width:  800px;
 
 // Fonts
-$font_serif:         Georgia, "Times New Roman", Times, serif;
 $font_sans_serif:    "Helvetica Neue", Helvetica, Arial, sans-serif;
-$font_monospace:     Menlo, Monaco, Consolas, monospace;
+$font_monospace:     Menlo, Monaco, Consolas, "Lucida Console", monospace;
 $default_font:       $font_sans_serif;
 $content_font:       $font_sans_serif;
 $code_font:          $font_monospace;
 
 // Font sizes
-$normal_font_size:   16px;
-$code_font_size:     14px;
+$normal_font_size:   18px;
+$code_font_size:     16px;
 $footer_font_size:   medium;
 $title_font_size:    24px;
 $line_height:        1.4;
@@ -74,8 +63,7 @@ html, body {
 pre {
   margin: 1em 0;
   padding: 0.2em 0.8em;
-  border: 1px solid $code_block_border;
-  border-left: 6px solid $code_block_border;
+  border-left: 4px solid $code_block_border;
   background-color: $code_bg;
   overflow-x: auto;
   line-height: $code_line_height;
@@ -111,18 +99,27 @@ ol {
   list-style-type: decimal;
 }
 
+ul {
+  list-style-type: square; 
+}
+
 // Page setup
 
 .header {
   background-color: $h_bg_color;
   color: $h_fg_color;
   margin: 0;
-  padding: 0 1em;
+
+  h1 {
+    display: inline;
+  }
 
   .title {
+    margin: 0;
+    padding: 5px 0;
     font-size: $title_font_size;
     font-weight: bold;
-    &:hover {
+    a:hover {
       background-color: inherit;
       color: inherit;
     }
@@ -140,45 +137,19 @@ ol {
       color: $h_bg_color;
     }
   }
-
-  ul {
-    display: inline-block;
-    list-style: none;
-    text-align: center;
-    height: auto;
-    padding: 0;
-    margin: 0;
-  }
-  li {
-    display: inline;
-  }
 }
 
 .content {
-  background-color: $bg_color;
-  color: $fg_color;
-  border: 1px solid $c_border_color;
+  padding-bottom: 10px;
+  border-bottom: 1px solid $b_border_color;
   font-family: $content_font;
-}
-
-.sidebar {
-  ul {
-    list-style: square;
-    padding: 0;
-    margin-left: 20px;
-  }
-
-  a {
-    text-decoration: none;
-  }
 }
 
 footer {
   color: $f_fg_color;
-  padding: 0.1em 2em 0.1em 2em;
+  padding: 10px;
   font-size: $footer_font_size;
   text-align: right;
-  margin-top: 10px;
 
   a {
     text-decoration: none;
@@ -186,6 +157,12 @@ footer {
 }
 
 // Random elements
+
+.box {
+  max-width: $content_max_width;
+  padding: 0 5px;
+  margin: 0 auto;
+}
 
 .pagetitle {
   a {
@@ -200,7 +177,6 @@ footer {
 }
 
 .float-container {
-
   .float-left {
     float: left;
   }
@@ -226,53 +202,23 @@ footer {
   }
 }
 
-// Normal
-@media (min-width: 769px) {
-  .header-content {
-    margin: 0 auto;
-    max-width: $layout_max_width;
-  }
+.no-bul {
+  list-style: none;
+}
 
-  .layout {
-    margin: 0 auto 20px auto;
-    max-width: $layout_max_width;
-    
-    .content-container {
-      clear: left;
-      float: left;
-      width: $content_width;
-      max-width: $content_max_width;
-      padding: 0;
-      margin: 10px 0 0 $content_right;
-      display: inline;
-    }
-
-    .sidebar {
-      float: left;
-      width: $sidebar_width;
-      padding: 5px;
-      margin: 0 0 0 $sidebar_right;
-      display: inline;
-    }
-  }
-
-  .content {
-    padding: 10px;
-    @include border-radius(5px);
-    margin: 0 0.5em;
+.inline-list {
+  li {
+    display: inline;
   }
 }
 
-// Responsive
-@media (max-width: 768px) {
-  .content {
-    padding: 5px;
+.info-table {
+  border: none;
+  th {
+    border: none;
     margin: 0;
-  }
-
-  .layout {
-    .sidebar {
-      padding: 5px;
-    }
+    text-align: right;
+    padding: 2px 15px 2px 0;
   }
 }
+

@@ -1,0 +1,19 @@
+{% extends "templates/page.html" %}
+{% block more %}
+<h3>Recent posts</h3>
+<ul class="no-bul">
+  {% for post in latest-posts %}
+  <li>{{post.date|date:"yyy-MM-dd"}} &raquo; <a href="{{post.uri}}">{{post.title}}</a></li>
+  {% endfor %}
+</ul>
+<ul class="no-bul inline-list">
+  <li><a href="{{archive-uri}}">Archive</a></li>
+  <li><a href="{{atom-uri}}">RSS</a></li>
+</ul>
+<h3>Tags</h3>
+<ul class="no-bul inline-list">
+  {% for tag in tags %}
+  <li><a href="{{tag|tag-uri}}">{{tag}}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}

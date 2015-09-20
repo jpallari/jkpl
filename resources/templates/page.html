@@ -1,5 +1,5 @@
 {% extends "templates/base.html" %}
-{%block subtitle %}{% if not page.hide-title? %}{{page.title}}{% endif %}{% endblock %}
+{% block subtitle %}{% if not page.hide-title? %}{{page.title}}{% endif %}{% endblock %}
 {% block content %}
 <div class="custom-page">
   {% if not page.hide-title? %}
@@ -8,5 +8,6 @@
   </div>
   {% endif %}
   {{page.content|safe}}
+  {% block more %}{% endblock %}
 </div>
 {% endblock %}

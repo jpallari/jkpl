@@ -17,7 +17,8 @@
 
 (defn page
   [conf page]
-  (render "page" (assoc conf :page page)))
+  (render (or (:template page) "page")
+          (assoc conf :page page)))
 
 (defn post
   [conf post]

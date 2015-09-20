@@ -4,10 +4,7 @@
 <div class="post">
   <header class="post-header">
     <p class="post-meta">
-      {{post.date|date:longDate}}
-      {% if post.author %}
-      By: {{post.author}}
-      {% endif %}
+      {{post.date|date:"yyyy-MM-dd"}}
     </p>
     <h2>{{post.title}}</h2>
   </header>

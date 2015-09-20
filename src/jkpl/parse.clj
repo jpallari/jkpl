@@ -79,7 +79,5 @@
     (assoc conf
            :all-pages pages
            :all-posts posts
-           :navbar-pages (filter :navbar? pages)
-           :sidebar-pages (filter :sidebar? pages)
            :latest-posts (latest-posts conf posts)
            :tags (posts->tags posts))))
