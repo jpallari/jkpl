@@ -3,10 +3,17 @@
 {% block content %}
 <div class="post">
   <header class="post-header">
-    <p class="post-meta">
-      {{post.date|date:"yyyy-MM-dd"}}
-    </p>
     <h2>{{post.title}}</h2>
+    <p class="post-meta">
+      <span>
+        Posted: {{post.date|date:"yyyy-MM-dd"}}
+      </span>
+      {% if post.edited %}
+      <span>
+        Last edited: {{post.edited|date:"yyyy-MM-dd"}}
+      </span>
+      {% endif %}
+    </p>
   </header>
   <div>
     {{post.content|safe}}

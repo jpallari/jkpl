@@ -1,15 +1,15 @@
 // Background colors
-$b_bg_color:         #fcfcfc;
-$b_fg_color:         #333;
-$b_border_color:     #ddd;
+$default_bg:         #ffffff;
+$default_fg:         #222;
+$default_border:     #ddd;
 
 // Header colors
-$h_bg_color:         #213;
-$h_fg_color:         #fff;
+$header_bg:          #213;
+$header_fg:          #fff;
 
 // Footer colors
-$f_bg_color:         $b_bg_color;
-$f_fg_color:         $b_fg_color;
+$footer_bg:          $default_bg;
+$footer_fg:          $default_fg;
 
 // Link colors
 $l_fg_color:         #44d;
@@ -18,9 +18,15 @@ $l_hover_bg_color:   $l_fg_color;
 $l_hover_fg_color:   #fff;
 
 // Code colors
-$code_bg:            #f0f0f0;
+$code_bg:            #fafafa;
+$code_fg:            inherit;
 $code_border:        #ddd;
+$code_block_bg:      #fafafa;
+$code_block_fg:      inherit;
 $code_block_border:  #35a;
+
+// Meta colors
+$meta_fg:            #666;
 
 // Layout
 $content_max_width:  800px;
@@ -35,6 +41,7 @@ $code_font:          $font_monospace;
 // Font sizes
 $normal_font_size:   18px;
 $code_font_size:     16px;
+$meta_font_size:     15px;
 $footer_font_size:   medium;
 $title_font_size:    24px;
 $line_height:        1.4;
@@ -51,8 +58,8 @@ $code_line_height:   1.2;
 // Defaults
 
 html, body {
-  background-color: $b_bg_color;
-  color: $b_fg_color;
+  background-color: $default_bg;
+  color: $default_fg;
   font-size: $normal_font_size;
   font-family: $default_font;
   line-height: $line_height;
@@ -60,25 +67,33 @@ html, body {
   padding: 0;
 }
 
+p {
+  margin: 22px 0;
+}
+
 pre {
-  margin: 1em 0;
-  padding: 0.2em 0.8em;
-  border-left: 4px solid $code_block_border;
-  background-color: $code_bg;
+  margin: 10px 0;
+  padding: 16px 10px;
+  border-left: 3px solid $code_block_border;
+  background-color: $code_block_bg;
+  color: $code_block_fg;
   overflow-x: auto;
   line-height: $code_line_height;
 }
 
 code {
   border: 1px solid $code_border;
-  background-color: #fff;
+  background-color: $code_bg;
+  color: $code_fg;
   @include border-radius(2px);
-  padding: 0 4px;
+  padding: 0 6px;
   font-family: $code_font;
+  font-size: $code_font_size;
 }
 
 pre code {
   background-color: transparent;
+  color: inherit;
   border: 0;
   padding: 0;
   font-size: $code_font_size;
@@ -106,8 +121,8 @@ ul {
 // Page setup
 
 .header {
-  background-color: $h_bg_color;
-  color: $h_fg_color;
+  background-color: $header_bg;
+  color: $header_fg;
   margin: 0;
 
   h1 {
@@ -133,20 +148,20 @@ ul {
     display: inline-block;
     padding: 5px 5px;
     &:hover {
-      background-color: $h_fg_color;
-      color: $h_bg_color;
+      background-color: $header_fg;
+      color: $header_bg;
     }
   }
 }
 
 .content {
   padding-bottom: 10px;
-  border-bottom: 1px solid $b_border_color;
+  border-bottom: 1px solid $default_border;
   font-family: $content_font;
 }
 
 footer {
-  color: $f_fg_color;
+  color: $footer_fg;
   padding: 10px;
   font-size: $footer_font_size;
   text-align: right;
@@ -170,8 +185,8 @@ footer {
     text-decoration: none;
 
     &:hover {
-      color: $h_fg_color;
-      background-color: $h_bg_color;
+      color: $header_fg;
+      background-color: $header_bg;
     }
   }
 }
@@ -219,6 +234,28 @@ footer {
     margin: 0;
     text-align: right;
     padding: 2px 15px 2px 0;
+  }
+}
+
+.post-header {
+  h2 {
+    margin-bottom: 2px;
+  }
+  .post-meta {
+    margin-top: 0;
+    font-size: $meta_font_size;
+    color: $meta_fg;
+    span {
+      margin-right: 20px;
+    }
+  }
+}
+
+.figure {
+  text-align: center;
+  img {
+    border: 1px solid $default_border;
+    max-width: 100%;
   }
 }
 
