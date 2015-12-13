@@ -8,7 +8,7 @@
             [clojure.edn :as edn]
             [stasis.core :as stasis]))
 
-(def export-target-dir "target/website/")
+(def default-export-target-dir "target/website/")
 
 (defn- load-config []
   (edn/read-string (slurp "resources/config.edn")))
@@ -72,8 +72,10 @@
        assets/server
        wrap-content-type))
 
-(defn export []
-  (stasis/empty-directory! export-target-dir)
-  (assets/save export-target-dir)
-  (stasis/export-pages (site) export-target-dir))
+(defn export
+  ([directory]
+    (stasis/empty-directory! directory)
+    (assets/save directory)
+    (stasis/export-pages (site) directory))
+  ([] (export default-export-target-dir)))
 
